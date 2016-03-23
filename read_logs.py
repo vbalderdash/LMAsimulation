@@ -1,3 +1,13 @@
+##################################################
+# Parsing, simple quality control for the case of bad lines (v10) and converting
+# threshold values from a log file into dBm into a pandas dataframe.
+#
+# Designed to run on Linux, may need new syntax for other platforms
+#
+# Contact:
+# vanna.chmielewski@ttu.edu
+##################################################
+
 import pandas as pd
 import numpy as np
 import subprocess

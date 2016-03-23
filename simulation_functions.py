@@ -1,3 +1,12 @@
+######################################################
+# Various functions for LMA simulations
+#
+# The black_box function is the main driver function
+# 
+# Contact:
+# vanna.chmielewski@ttu.edu
+######################################################
+
 import numpy as np
 from scipy.linalg import lstsq
 from scipy.optimize import leastsq

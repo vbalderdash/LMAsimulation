@@ -1,3 +1,11 @@
+This model and its results have been submitted to the Journal of Geophysical Research.
+
+Please cite:
+
+V. Chmielewski and E. Bruning, Lightning Mapping Array flash detection performance with variable receiver thresholds, Submitted to J. Geophys. Res.
+
+If any results from this model are presented.
+
 # LMAsimulation
 This code is designed to simulate the way any LMA would solve a grid of point emitters, accounting for each station's noise levels and adding normally distributed timing errors at each station.
 

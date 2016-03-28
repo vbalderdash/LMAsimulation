@@ -5,6 +5,14 @@
 # 
 # Contact:
 # vanna.chmielewski@ttu.edu
+#
+#
+# This model and its results have been submitted to the Journal of Geophysical Research.
+# Please cite:
+# V. Chmielewski and E. Bruning, Lightning Mapping Array flash detection 
+# performance with variable receiver thresholds, Submitted to J. Geophys. Res.
+#
+# If any results from this model are presented.
 ######################################################
 
 import numpy as np

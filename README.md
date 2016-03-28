@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.48474.svg)](http://dx.doi.org/10.5281/zenodo.48474)
+
+
 This model and its results have been submitted to the Journal of Geophysical Research.
 
 Please cite:

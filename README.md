@@ -37,3 +37,7 @@ This is intended for parsing, quick QC, and integrating v10 log files for LMA st
 ### coordinateSystems.py
 
 This contains the driving functions for the coordinate system transformations
+
+### network_full.csv
+
+This csv contains the approximated station locations and thresholds used for analysis. For more precise station locations, please contact the inidividual network operators or the authors of this program.

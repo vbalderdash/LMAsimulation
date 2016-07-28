@@ -1,11 +1,13 @@
+Original release of model in conjunction with publication:
+
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.48474.svg)](http://dx.doi.org/10.5281/zenodo.48474)
 
 
-This model and its results have been submitted to the Journal of Geophysical Research.
+This model and its results are discussed in an article avaiable through the Journal of Geophysical Research (http://onlinelibrary.wiley.com/doi/10.1002/2016JD025159/full).
 
 Please cite:
 
-V. Chmielewski and E. Bruning, Lightning Mapping Array flash detection performance with variable receiver thresholds, Submitted to J. Geophys. Res.
+V. Chmielewski and E. Bruning, Lightning Mapping Array flash detection performance with variable receiver thresholds, J. Geophys. Res., doi:10.1002/2016JD025159
 
 If any results from this model are presented.
 

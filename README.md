@@ -7,7 +7,7 @@ This model and its results are discussed in an article avaiable through the Jour
 
 Please cite:
 
-V. Chmielewski and E. Bruning, Lightning Mapping Array flash detection performance with variable receiver thresholds, J. Geophys. Res., doi:10.1002/2016JD025159
+V. C. Chmielewski and E. C. Bruning (2016), Lightning Mapping Array flash detection performance with variable receiver thresholds, J. Geophys. Res. Atmos., 121, 8600-8614, doi:10.1002/2016JD025159
 
 If any results from this model are presented.
 

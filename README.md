@@ -28,6 +28,12 @@ Note: The log file reading function is set up to handle errors in files through 
 
 This runs the curvature matrix calculations for rmse of solution points in a gridded domain. The used stations must be specified in the network.csv file.
 
+### LMAdetection_efficiency.ipynb
+
+Stand alone notebook purely for quickly estimating the detection efficiency of a network. 
+
+This is a new addition not described in the publication.
+
 ### simulation_function.py
 
 This contains the calculations for all models.

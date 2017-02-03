@@ -38,6 +38,10 @@ This is a new addition not described in the publication.
 
 This contains the calculations for all models.
 
+### parsed_functions.py
+
+This contains only the calculations needed for the simplified detection efficiency model used by LMAdetection_efficiency.ipynb
+
 ### read_logs.py
 
 This is intended for parsing, quick QC, and integrating v10 log files for LMA stations.

@@ -102,6 +102,7 @@ def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c
         masking2[i,selection] = tanp_all[i].toLocal(points2[selection].T)[2]>0
         
     ran = np.ma.masked_where(masking2==0, ran)
+    ran = np.ma.masked_where(ran>=320000, ran)
 
     mins = min_power((10**(ordered_threshs/10.))*1e-3,ran)
     np.ma.set_fill_value(mins, 999)

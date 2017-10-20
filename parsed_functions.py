@@ -83,7 +83,7 @@ def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c
     initial_points = np.array(np.meshgrid(np.arange(xmin,xmax+xint,xint),
                                           np.arange(ymin,ymax+xint,xint), alts))
 
-    x,y,z=initial_points.reshape((3,np.size(initial_points)/3))
+    x,y,z=initial_points.reshape((3,int(np.size(initial_points)/3)))
     points2 = np.array(projl.toECEF(x,y,z)).T
 
     xp,yp,zp = points2.T

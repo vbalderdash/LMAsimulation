@@ -40,7 +40,8 @@ def power_increase(r, wavelength=4.762, recv_gain=1.0):
 #     return -10*np.log10((free_space_loss * recv_gain)/1e-3)
     return -10*np.log10((free_space_loss * recv_gain))
 
-def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c0 = 3.0e8):
+def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c0 = 3.0e8,
+                 mindist = 300000):
     """ This function derives the minimum detectable source power and 
         corresponding source and flash detection efficiencies at points within
         300 km of the network with grid spacing xint at altitude m MSL
@@ -56,6 +57,10 @@ def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c
         signal in order to find a solution
         
         c0 is th speed of light
+
+        mindist is used to find the min/max x- and y- grid coordinates from 
+        the min/max station locations. Ex: A value of 300000 (m) is at least 
+        600 by 600 km in x and y.
 
         Also performs check of line of sight based on Earth curvature
 
@@ -75,10 +80,10 @@ def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c
     ordered_threshs = aves[:,-1]
 
     check = projl.fromECEF(stations_ecef[:,0],stations_ecef[:,1],stations_ecef[:,2])
-    xmin = np.min(check[0]) - 300000
-    xmax = np.max(check[0]) + 300000
-    ymin = np.min(check[1]) - 300000
-    ymax = np.max(check[1]) + 300000
+    xmin = np.min(check[0]) - mindist
+    xmax = np.max(check[0]) + mindist
+    ymin = np.min(check[1]) - mindist
+    ymax = np.max(check[1]) + mindist
     alts = np.array([altitude])
     initial_points = np.array(np.meshgrid(np.arange(xmin,xmax+xint,xint),
                                           np.arange(ymin,ymax+xint,xint), alts))
@@ -117,7 +122,7 @@ def quick_method(aves, sq, fde, xint=5000, altitude=7000,station_requirement=6,c
     sde[selects] = 100
     sde = (sde.T.reshape(np.shape(initial_points[0,:,:,0])))
 
-    fde_a = np.empty_like(sde)
+    fde_a = np.zeros_like(sde)
     xs  = 1000./np.arange(10,1000,1.) # Theoretical source detection efficiency that corresponds with fde
 
     selects = sde == 100. # Put into the next lowest or equivalent flash DE from given source DE

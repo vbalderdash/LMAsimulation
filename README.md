@@ -34,13 +34,21 @@ Stand alone notebook purely for quickly estimating the detection efficiency of a
 
 This is a new addition not described in the publication.
 
+### LMAsimulation_ellipse.ipynb
+
+Based on the same theory as the full simulation, but instead returns the expected errors by x-y covariances and z standard deviations. Otherwise the simulation is the same, but resulting plots from the covariances are more intuitive for larger/combined networks where the center of the contributing set of stations may be displaced from the network center resulting in non-radial error patterns.
+
 ### simulation_function.py
 
 This contains the calculations for all models.
 
+### simulation_ellipse.py
+
+Based on simulation_function.py but with extra functionality for calculating the error covariances in x and y.
+
 ### parsed_functions.py
 
-This contains only the calculations needed for the simplified detection efficiency model used by LMAdetection_efficiency.ipynb
+This contains only the calculations needed for the simplified detection efficiency model used by LMAdetection_efficiency.ipynb and LMAsimulation_ellipse.ipynb
 
 ### read_logs.py
 

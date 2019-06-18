@@ -315,7 +315,7 @@ def black_box(x,y,z,n,
         return np.mean(difs.T[chi2[good]<chi2_filter].T, axis=1
              ), np.std(difs.T[chi2[good]<chi2_filter].T, axis=1
              ), np.ma.count_masked(difs[0])+np.sum(chi2[good]>=chi2_filter
-             )+np.sum(-good)
+             )+np.sum(~good)
     else:
         #Convert back to local tangent plane
         soluts = tanp.toLocal(retrieved_locations.T)
@@ -409,7 +409,7 @@ def black_box_full(x,y,z,n,
     # Converts to projection
     soluts = tanp.toLocal(retrieved_locations.T)
     good   = soluts[2] > 0
-    station_count[-good] = np.nan
+    station_count[~good] = np.nan
     # proj_points = projl.fromECEF(points_f_ecef[good,0], 
     #                              points_f_ecef[good,1], 
     #                              points_f_ecef[good,2])
@@ -450,11 +450,11 @@ def curvature_matrix(points,stations_local,ordered_threshs,c0,power,
     test_power = received_power(power,dist)
     masking = 10.*np.log10(test_power/1e-3) < ordered_threshs
     # Precalculate some terms to simplify the calculations for each term
-    ut1 = -dist[-masking]
-    ut2 = stations_local[-masking] - points
-    dist_term = dist[-masking]*dist[-masking]
+    ut1 = -dist[~masking]
+    ut2 = stations_local[~masking] - points
+    dist_term = dist[~masking]*dist[~masking]
     # Find each term of the curvature matrix
-    if np.sum(-masking)>=min_stations:
+    if np.sum(~masking)>=min_stations:
         curvature_matrix = np.empty((4,4))
         curvature_matrix[0,0] = np.sum((ut2[:,1]**2 + ut2[:,2]**2)*
                                         dist_term**(-3./2.)*ut1+1)
@@ -462,7 +462,7 @@ def curvature_matrix(points,stations_local,ordered_threshs,c0,power,
                                         dist_term**(-3./2.)*ut1+1)
         curvature_matrix[2,2] = np.sum((ut2[:,1]**2 + ut2[:,0]**2)*
                                         dist_term**(-3./2.)*ut1+1)
-        curvature_matrix[3,3] = np.sum(-masking)
+        curvature_matrix[3,3] = np.sum(~masking)
         curvature_matrix[0,1] = np.sum(-ut1*ut2[:,0]*ut2[:,1]*
                                        dist_term**(-3./2.))
         curvature_matrix[0,2] = np.sum(-ut1*ut2[:,0]*ut2[:,2]*

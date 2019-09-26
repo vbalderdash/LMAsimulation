@@ -1,21 +1,3 @@
-######################################################
-# Various functions for LMA simulations
-#
-# The black_box function is the main driver function
-# 
-# Contact:
-# vanna.chmielewski@ttu.edu
-#
-#
-# This model and its results have been submitted to the Journal of Geophysical Research.
-# Please cite:
-# V. C. Chmielewski and E. C. Bruning (2016), Lightning Mapping Array flash detection 
-# performance with variable receiver thresholds, J. Geophys. Res. Atmos., 121, 8600-8614, 
-# doi:10.1002/2016JD025159
-#
-# If any results from this model are presented.
-######################################################
-
 import numpy as np
 from scipy.linalg import lstsq
 from scipy.optimize import leastsq
@@ -143,7 +125,7 @@ def gen_retrieval(t_all, t_mins, dxvec, drsq, center_ECEF, stations_ECEF,
         least-squares solutions.
     """    
     for i in range(t_all.shape[1]):
-        selection=~np.ma.getmask(t_all[:,i])
+        selection=~np.ma.getmaskarray(t_all[:,i])
         if np.all(selection == True):
             selection = np.array([True]*len(t_all[:,i]))
             yield gen_retrieval_math(i, selection, t_all, t_mins, dxvec, drsq,
@@ -172,7 +154,7 @@ def gen_retrieval_full(t_all, t_mins, dxvec, drsq, center_ECEF, stations_ECEF,
         station
     """    
     for i in range(t_all.shape[1]):
-        selection=~np.ma.getmask(t_all[:,i])
+        selection=~np.ma.getmaskarray(t_all[:,i])
         plsq = np.array([np.nan]*7)
         if np.all(selection == True):
             selection = np.array([True]*len(t_all[:,i]))
@@ -193,6 +175,17 @@ def gen_retrieval_full(t_all, t_mins, dxvec, drsq, center_ECEF, stations_ECEF,
             plsq[6] = np.shape(stations_ECEF[selection])[0]
             yield plsq
 
+
+def array_from_generator2(generator, rows):
+    """Creates a numpy array from a specified number 
+    of values from the generator provided."""
+    data = []
+    for row in range(rows):
+        try:
+            data.append(next(generator))
+        except StopIteration:
+            break
+    return np.array(data)
 
 def black_box(x,y,z,n,
               stations_local,ordered_threshs,stations_ecef,center_ecef,
@@ -280,9 +273,11 @@ def black_box(x,y,z,n,
                               center_ecef, stations_ecef, dt_rms, 
                               min_stations)
     # Suck up the values produced by the generator, produce named array.
-    retrieved_locations = np.fromiter(point_gen, dtype=dtype)
-    retrieved_locations = np.array([(a,b,c,e) for (a,b,c,d,e) in 
-                                     retrieved_locations])
+    # retrieved_locations = np.fromiter(point_gen, dtype=dtype)
+    # retrieved_locations = np.array([(a,b,c,e) for (a,b,c,d,e) in 
+    #                                  retrieved_locations])
+    retrieved_locations = array_from_generator2(point_gen,rows=n)
+    retrieved_locations = retrieved_locations[:,[0,1,2,-1]]
     chi2                = retrieved_locations[:,3]
     retrieved_locations = retrieved_locations[:,:3]
     retrieved_locations = np.ma.masked_invalid(retrieved_locations)
@@ -398,9 +393,11 @@ def black_box_full(x,y,z,n,
                                    center_ecef, stations_ecef, dt_rms, 
                                    min_stations) 
     # Suck up all the values produced by the generator, produce named array.
-    retrieved_locations = np.fromiter(point_gen, dtype=dtype)
-    retrieved_locations = np.array([(a,b,c,e,f,g) for (a,b,c,d,e,f,g) in 
-                                   retrieved_locations])
+    # retrieved_locations = np.fromiter(point_gen, dtype=dtype)
+    # retrieved_locations = np.array([(a,b,c,e,f,g) for (a,b,c,d,e,f,g) in 
+    #                                retrieved_locations])
+    retrieved_locations = array_from_generator2(point_gen,rows=n)
+    retrieved_locations = retrieved_locations[:,[0,1,2,4,5,6]]
     station_count       = retrieved_locations[:,5]
     terror              = retrieved_locations[:,4]
     chi2                = retrieved_locations[:,3]

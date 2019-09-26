@@ -1,3 +1,21 @@
+######################################################
+# Various functions for LMA simulations
+#
+# The black_box function is the main driver function
+# 
+# Contact:
+# vanna.chmielewski@noaa.gov
+#
+#
+# This model and its results have been submitted to the Journal of Geophysical Research.
+# Please cite:
+# V. C. Chmielewski and E. C. Bruning (2016), Lightning Mapping Array flash detection 
+# performance with variable receiver thresholds, J. Geophys. Res. Atmos., 121, 8600-8614, 
+# doi:10.1002/2016JD025159
+#
+# If any results from this model are presented.
+######################################################
+
 import numpy as np
 from scipy.linalg import lstsq
 from scipy.optimize import leastsq

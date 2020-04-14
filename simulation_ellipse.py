@@ -181,6 +181,17 @@ def eigsorted(cov):
     order = vals.argsort()[::-1]
     return vals[order], vecs[:,order]
 
+def array_from_generator2(generator, rows):
+    """Creates a numpy array from a specified number 
+    of values from the generator provided."""
+    data = []
+    for row in range(rows):
+        try:
+            data.append(next(generator))
+        except StopIteration:
+            break
+    return np.array(data)
+
 def black_boxtesting(x,y,z,n,
               stations_local,ordered_threshs,stations_ecef,center_ecef,
               tanps,
@@ -257,7 +268,8 @@ def black_boxtesting(x,y,z,n,
                               center_ecef, stations_ecef, dt_rms, 
                               min_stations)
     # Suck up the values produced by the generator, produce named array.
-    retrieved_locations = np.fromiter(point_gen, dtype=dtype)
+    retrieved_locations = array_from_generator2(point_gen,rows=n)
+    # retrieved_locations = np.fromiter(point_gen, dtype=dtype)
     retrieved_locations = np.array([(a,b,c,e) for (a,b,c,d,e) in 
                                      retrieved_locations])
     chi2                = retrieved_locations[:,3]

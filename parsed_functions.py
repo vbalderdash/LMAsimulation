@@ -28,7 +28,8 @@ def min_power(threshold, r, wavelength=4.762, recv_gain=1.0):
     """
     four_pi_r = 4.0 * np.pi * r
     free_space_loss = (wavelength*wavelength) / (four_pi_r * four_pi_r)
-    return threshold[:,np.newaxis] / (free_space_loss * recv_gain)
+    return np.ma.array([threshold[i] / (free_space_loss[i] * recv_gain) for i in range(len(threshold))])
+    # return threshold[:,np.newaxis] / (free_space_loss * recv_gain)
 
 def power_increase(r, wavelength=4.762, recv_gain=1.0):
     """ Calculate the free space loss. Defaults are for no receive gain and

@@ -108,6 +108,10 @@ class MapProjection(CoordinateSystem):
         return px, py, pz
         
     def fromECEF(self, x, y, z):
+        x = atleast_1d(x)
+        y = atleast_1d(y)
+        z = atleast_1d(z)
+        if (x.shape[0] == 0): return x, y, z # proj doesn't like empties
         projectedData = array(proj4.transform(CoordinateSystem.WGS84xyz, self.projection, x, y, z ))
         if len(projectedData.shape) == 1:
             px, py, pz = projectedData[0], projectedData[1], projectedData[2]
